@@ -10,7 +10,7 @@ const authRoute = require("./routes/auth-routes")
 
 const app = express();
 const corsConfig = {
-	origin: process.env.BASE_URL,
+	origin: '*',
 	credentials: true,
 };
 
