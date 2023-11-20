@@ -13,7 +13,7 @@ const register = async (req, res) => {
 		const newUser = new User({ email, password, name: fullname });
 		const token = await newUser.generateAuthToken();
 		await newUser.save();
-		res.json({ message: "success", token: token });
+		res.json({ message: "success", token: token, user: newUser });
 	} catch (error) {
 		console.log("Error in register " + error);
 		res.status(500).send(error);
@@ -34,7 +34,7 @@ const login = async (req, res) => {
 				httpOnly: true,
 				maxAge: 24 * 60 * 60 * 1000,
 			});
-			res.status(200).json({ token: token, status: 200 });
+			res.status(200).json({ token: token, status: 200, user: valid });
 		}
 	} catch (error) {
 		res.status(500).json({ error: error });

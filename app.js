@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose");
+const cors = require("cors");
 require("dotenv").config();
 
 
@@ -8,9 +9,14 @@ const blogRoute = require("./routes/blog-routes")
 const authRoute = require("./routes/auth-routes")
 
 const app = express();
+const corsConfig = {
+	origin: process.env.BASE_URL,
+	credentials: true,
+};
 
 app.use(bodyParser.json());
-
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors(corsConfig));
 app.use('/api/blog', blogRoute)
 app.use('/api/auth', authRoute)
 
